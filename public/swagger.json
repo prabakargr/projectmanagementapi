@@ -1,0 +1,816 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is about to project management",
+    "version": "1.0.0",
+    "title": "Project Management",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "calm-brook-82945.herokuapp.com",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "users",
+      "description": "Everything about users",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://swagger.io"
+      }
+    },
+    {
+      "name": "projects",
+      "description": "Everything about projects"
+    },
+    {
+      "name": "payments",
+      "description": "Everything about payments",
+      "externalDocs": {
+        "description": "Find out more about our store",
+        "url": "http://swagger.io"
+      }
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/users/adduser": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Add a new user",
+        "description": "",
+        "operationId": "addUser",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "adding a new user schema",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userdetails"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/users/getusers": {
+      "get": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Finds all users",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "operationId": "findusers",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Status values that need to be considered for filter",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "available",
+                "pending",
+                "sold"
+              ],
+              "default": "available"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/userdetails"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/users/forgotpwd": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "forgot password",
+        "description": "",
+        "operationId": "forgot password",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "forgot password schema",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/forgotpassword"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "login",
+        "description": "",
+        "operationId": "login",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "find user and login",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/loginuser"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/users/changepwd": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "change password",
+        "description": "",
+        "operationId": "change password",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "find user and change password",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/changepwd"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/users/updateprofile": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "update profile",
+        "description": "",
+        "operationId": "update profile",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "find user and update profile",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/userprofiledetails"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/projects/addproject": {
+      "post": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "add new project",
+        "description": "",
+        "operationId": "add new project",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "adding new project schema",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/addproject"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/projects/getprojects": {
+      "get": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "Finds all projects",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "operationId": "get all projects",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Status values that need to be considered for filter",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "available",
+                "pending",
+                "sold"
+              ],
+              "default": "available"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/userdetails"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/projects/projectupdate": {
+      "post": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "update project status",
+        "description": "",
+        "operationId": "update project",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "update project status",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/projectupdate"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/projects/findproject": {
+      "post": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "find projects",
+        "description": "",
+        "operationId": "find projects",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "find projects",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/findprojects"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/projects/deleteproject": {
+      "post": {
+        "tags": [
+          "projects"
+        ],
+        "summary": "delete project",
+        "description": "",
+        "operationId": "delete project",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "delete project",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/projectdelete"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/payments/getclients": {
+      "get": {
+        "tags": [
+          "payments"
+        ],
+        "summary": "Finds all clients",
+        "description": "Multiple status values can be provided with comma separated strings",
+        "operationId": "get all clients",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "status",
+            "in": "query",
+            "description": "Status values that need to be considered for filter",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "available",
+                "pending",
+                "sold"
+              ],
+              "default": "available"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/getclients"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid status value"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/payments/findProject": {
+      "post": {
+        "tags": [
+          "payments"
+        ],
+        "summary": "find project for pending payment",
+        "description": "",
+        "operationId": "find project payment pending",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "find project for pending amt calculation",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/projectdelete"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/payments/addpayment": {
+      "post": {
+        "tags": [
+          "payments"
+        ],
+        "summary": "to add payment",
+        "description": "",
+        "operationId": "add payment",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "add a new payment",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/addpayamt"
+            }
+          }
+        ],
+        "responses": {
+          "405": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:pets": "modify pets in your account",
+        "read:pets": "read your pets"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "userdetails": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "userdetails"
+      }
+    },
+    "userprofiledetails": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "firstname": {
+          "type": "string"
+        },
+        "lastname": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "postalcode": {
+          "type": "string"
+        },
+        "company": {
+          "type": "string"
+        },
+        "aboutme": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "userprofiledetails"
+      }
+    },
+    "forgotpassword": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "forgotpassword"
+      }
+    },
+    "loginuser": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "loginuser"
+      }
+    },
+    "changepwd": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "confirmPassword": {
+          "type": "string"
+        },
+        "currentpass": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "changepwd"
+      }
+    },
+    "addproject": {
+      "type": "object",
+      "properties": {
+        "appname": {
+          "type": "string"
+        },
+        "client": {
+          "type": "string"
+        },
+        "timelimit": {
+          "type": "string"
+        },
+        "startdate": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "addproject"
+      }
+    },
+    "projectupdate": {
+      "type": "object",
+      "properties": {
+        "appname": {
+          "type": "string"
+        },
+        "client": {
+          "type": "string"
+        },
+        "appstatus": {
+          "type": "string"
+        },
+        "comment": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "projectupdate"
+      }
+    },
+    "findprojects": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "findprojects"
+      }
+    },
+    "projectdelete": {
+      "type": "object",
+      "properties": {
+        "appname": {
+          "type": "string"
+        },
+        "client": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "projectdelete"
+      }
+    },
+    "getclients": {
+      "type": "object",
+      "properties": {
+        "appname": {
+          "type": "string"
+        },
+        "client": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "getclients"
+      }
+    },
+    "addpayamt": {
+      "type": "object",
+      "properties": {
+        "appname": {
+          "type": "string"
+        },
+        "client": {
+          "type": "string"
+        },
+        "addpayment": {
+          "$ref": "#/definitions/addpayment"
+        }
+      },
+      "xml": {
+        "name": "getclients"
+      }
+    },
+    "addpayment": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "string"
+        },
+        "date": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "addpay"
+      }
+    }
+  }
+}
